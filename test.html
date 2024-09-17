@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Leaflet Geo JSON Example</title>
+        <meta charset="utf-8" />
+        <meta name = "viewport" content="width=device-widt, initial-scale=1.0">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+    </head>
+    <body>
+        <div id="map" style="height: 600px;"></div>
+
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script>
+            // Initialize the map and set its view to a chosen geographical point and zoom level
+            var map = L.map('map').setView([51.505, -0.09], 13);
+    
+            // Add a tile layer to the map (this is an OpenStreetMap tile layer)
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+            }).addTo(map);
+    
+            // Example GeoJSON data (can also be loaded from an external file)
+            
+            /*var geojsonFeature = {
+                "type": "Feature",
+                "properties": {
+                    "name": "Coors Field",
+                    "amenity": "Baseball Stadium",
+                    "popupContent": "This is where the Rockies play!"
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [-104.99404, 39.75621]
+                }
+            };
+    
+            // Add GeoJSON data to the map
+            L.geoJSON(geojsonFeature).addTo(map);
+            */
+
+            // Optionally, fetch external GeoJSON data using Axios or Fetch API
+            axios.get('https://github.com/winleithwepcy/Biochar_Map/blob/main/ken.geojson')
+                .then(function(response) {
+                    L.geoJSON(response.data).addTo(map);
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+        </script>
+    </body>
+</html>
